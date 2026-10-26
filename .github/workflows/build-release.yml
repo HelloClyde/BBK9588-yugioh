@@ -1,0 +1,123 @@
+name: Build and release BDA
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: yugioh-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref_type != 'tag' }}
+
+jobs:
+  host:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          submodules: false
+      - name: Initialize pinned upstream only
+        run: git submodule update --init --depth 1 -- upstream
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Run rules and source-only UI tests
+        run: python tools/test_host.py --cc gcc
+
+  build:
+    needs: host
+    runs-on: windows-latest
+    timeout-minutes: 25
+    env:
+      PYTHONUTF8: '1'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          submodules: false
+      - name: Initialize fixed source dependencies only
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $PSNativeCommandUseErrorActionPreference = $true
+          git submodule sync -- sdk upstream
+          git submodule update --init --depth 1 -- sdk upstream
+          foreach ($name in @('sdk', 'upstream')) {
+            $expected = git rev-parse "HEAD:$name"
+            $actual = git -C $name rev-parse HEAD
+            if ($expected -ne $actual) { throw "Pinned submodule mismatch: $name" }
+          }
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-build.txt
+      - name: Install build dependencies
+        run: python -m pip install -r requirements-build.txt
+      - uses: actions/cache@v6
+        with:
+          path: sdk/.toolchain
+          key: windows-mips-gcc-15.2.0-8ba866e25c9826ee-v1
+      - name: Install and verify MIPS toolchain
+        shell: pwsh
+        run: ./sdk/scripts/setup_toolchain.ps1
+      - name: Build public BDA and install ZIP
+        shell: pwsh
+        env:
+          REF_TYPE: ${{ github.ref_type }}
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $PSNativeCommandUseErrorActionPreference = $true
+          if ($env:REF_TYPE -eq 'tag') {
+            python build.py --tag $env:REF_NAME
+            python tools/check_release.py --tag $env:REF_NAME
+          } else {
+            python build.py
+            python tools/check_release.py
+          }
+      - uses: actions/upload-artifact@v7
+        with:
+          name: public-bda-assets
+          path: |
+            dist/Yugioh9588.bda
+            dist/BBK9588-yugioh.zip
+            dist/BUILD.json
+            dist/SHA256SUMS.txt
+          archive: true
+          if-no-files-found: error
+          retention-days: 14
+
+  release:
+    if: github.event_name == 'push' && github.ref_type == 'tag'
+    needs: build
+    runs-on: windows-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          submodules: false
+      - uses: actions/download-artifact@v8
+        with:
+          name: public-bda-assets
+          path: release-assets
+      - name: Verify and publish exact build assets
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $PSNativeCommandUseErrorActionPreference = $true
+          python tools/publish_release.py --repo $env:RELEASE_REPO --tag $env:RELEASE_TAG --directory release-assets

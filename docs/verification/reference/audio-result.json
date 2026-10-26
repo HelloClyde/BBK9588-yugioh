@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "bda_sha256": "ad8e57161bb31d4a6c95bea03c88ebce64e30e35e68e741fdf807b68668bed2a",
+  "navigation_before": {
+    "seconds": 14.199002267573697,
+    "underruns_delta": 13837,
+    "dma_total_gap_underruns_delta": 13837
+  },
+  "navigation_after": {
+    "seconds": 14.09201814058957,
+    "underruns_delta": 0,
+    "dma_total_gap_underruns_delta": 0
+  },
+  "idle_after": {
+    "seconds": 8.146984126984126,
+    "underruns_delta": 0,
+    "dma_total_gap_underruns_delta": 0
+  },
+  "reference_correlation": 0.9999271025368237,
+  "reference_offset_frames": 89788,
+  "reference_scale": 0.5571352709335856,
+  "reference_error_rms_pcm16": 0.8921456619792464,
+  "reference_snr_db": 38.36273418926648,
+  "test_rate_hz": 22050,
+  "reference_speed_ratio": 1,
+  "checked_frames": 110250,
+  "host_mixer_tests": "passed: FIFO prefill, exact resampling phase, batched reads, short-write retention, failed-write retry, two FX channels, finite track completion, stop",
+  "qemu_sha256": "7d0a425b7bddd3aeceb0795f3d380c5b1eb19a6e4f70e092efcb4a52c2ff3594",
+  "emulator_volume_tests": "passed: all signed PCM16 values at gains 0..422 preserve sign, monotonicity and saturate"
+}

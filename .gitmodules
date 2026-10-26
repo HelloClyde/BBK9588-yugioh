@@ -1,0 +1,6 @@
+[submodule "sdk"]
+	path = sdk
+	url = https://github.com/HelloClyde/bbk9588-bda-sdk.git
+[submodule "upstream"]
+	path = upstream
+	url = https://github.com/HelloClyde/BBKH1-yugioh.git

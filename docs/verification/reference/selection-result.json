@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "checks": 217,
+  "fixture_kind": "host synthetic states using production frontend",
+  "guest_memory_written": false,
+  "selection_modes": 7,
+  "bda_sha256": "ad8e57161bb31d4a6c95bea03c88ebce64e30e35e68e741fdf807b68668bed2a",
+  "ui_source_sha256": "178f49407731009ab80d3a79dd06b0381966cee2b0369de33b545befeb66262f",
+  "firmware": {
+    "passed": true,
+    "normal_inputs_only": true,
+    "guest_memory_written": false,
+    "attempts": 1,
+    "source_card": 248,
+    "inspected_card": 146,
+    "options": 13,
+    "page_details_checked": true,
+    "selection_retained": true,
+    "game_unchanged_while_inspecting": true,
+    "confirm_added_chosen_card_to_hand": true,
+    "program": {
+      "installed_bda_sha256": "ad8e57161bb31d4a6c95bea03c88ebce64e30e35e68e741fdf807b68668bed2a",
+      "loaded_text_sha256": "7282b5c5075cc71de4507eab27752a8cfdbd8e9345f04f3c2243d7a86b5737f0",
+      "text_bytes": 441184
+    }
+  }
+}

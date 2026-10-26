@@ -1,0 +1,124 @@
+{
+  "passed": true,
+  "bda_sha256": "ad8e57161bb31d4a6c95bea03c88ebce64e30e35e68e741fdf807b68668bed2a",
+  "source_tile": [
+    90,
+    90
+  ],
+  "choice_tile": [
+    68,
+    68
+  ],
+  "result_tile": [
+    90,
+    90
+  ],
+  "guest_memory_written": false,
+  "checks": [
+    "three hands via illustration and label",
+    "keyboard focus",
+    "row gaps and margins",
+    "inactive result text",
+    "draw, player order and NPC order"
+  ],
+  "cases": [
+    [
+      3,
+      0,
+      0,
+      0,
+      2,
+      2,
+      255,
+      1,
+      0,
+      0,
+      0,
+      1
+    ],
+    [
+      3,
+      0,
+      0,
+      1,
+      0,
+      2,
+      255,
+      1,
+      0,
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      0,
+      0,
+      2,
+      2,
+      0,
+      255,
+      1,
+      0,
+      2,
+      255,
+      1
+    ],
+    [
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      255,
+      1,
+      0,
+      3,
+      255,
+      1
+    ],
+    [
+      1,
+      0,
+      0,
+      1,
+      1,
+      0,
+      255,
+      1,
+      0,
+      4,
+      255,
+      1
+    ],
+    [
+      1,
+      0,
+      0,
+      2,
+      2,
+      0,
+      255,
+      1,
+      0,
+      5,
+      255,
+      1
+    ],
+    [
+      2,
+      0,
+      0,
+      0,
+      1,
+      1,
+      255,
+      1,
+      0,
+      6,
+      255,
+      1
+    ]
+  ]
+}

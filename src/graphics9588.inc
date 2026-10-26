@@ -1,0 +1,19 @@
+/* The original indexed card art, wood, paper and fonts at native portrait size. */
+static void native_fill(int x,int y,unsigned w,unsigned h,uint16_t c){
+    int x0=x<0?0:x,y0=y<0?0:y,x1=x+(int)w,y1=y+(int)h;
+    if(x1>240)x1=240;if(y1>320)y1=320;
+    for(int yy=y0;yy<y1;++yy)for(int xx=x0;xx<x1;++xx)screen[yy*240+xx]=c;
+}
+static void native_outline(int x,int y,unsigned w,unsigned h,uint16_t c){native_fill(x,y,w,1,c);native_fill(x,y+(int)h-1,w,1,c);native_fill(x,y,1,h,c);native_fill(x+(int)w-1,y,1,h,c);}
+static void native_text(int x,int y,const uint16_t *s,unsigned n,unsigned h,uint32_t c){joey_audio_tick();native_font_text(screen,240,320,x,y,s,n,(c>>16)|(c&0xff00)|((c&255)<<16),0,h|0x10000);joey_audio_tick();}
+static void native_label(int x,int y,const uint16_t *s,unsigned h,uint32_t c){unsigned n=0;while(s[n])++n;native_text(x,y,s,n,h,c);}
+static void native_number(int x,int y,unsigned v,unsigned h,uint32_t c){uint16_t s[12],r[12];unsigned n=0;do{r[n++]='0'+v%10;v/=10;}while(v&&n<12);for(unsigned i=0;i<n;++i)s[i]=r[n-i-1];native_text(x,y,s,n,h,c);}
+static void native_wrapped(int x,int y,unsigned width,const uint16_t *s,unsigned count,unsigned h,unsigned max_lines,uint32_t c){unsigned line=0,col=0;for(unsigned i=0;i<count&&line<max_lines;++i){unsigned w=s[i]<128?h/2:h;if(s[i]=='\n'||col+w>width){++line;col=0;if(s[i]=='\n')continue;}if(line>=max_lines)break;native_text(x+col,y+line*(h+3),s+i,1,h,c);col+=w;}}
+static void scene_card(int x,int y,unsigned card,unsigned kind,unsigned w,unsigned h){uint16_t *pal;uint8_t *pix;if(!w||!h||!native_texture(card,kind,&pal,&pix))return;unsigned sw=kind==0?88:kind==1?36:32,sh=kind==0?128:kind==1?52:46;for(unsigned yy=0;yy<h;++yy)for(unsigned xx=0;xx<w;++xx)if(x+(int)xx>=0&&x+(int)xx<240&&y+(int)yy>=0&&y+(int)yy<320)screen[(y+yy)*240+x+xx]=pal[pix[(yy*sh/h)*sw+xx*sw/w]];}
+static void native_card(int x,int y,unsigned card,unsigned kind){scene_card(x,y,card,kind,kind==0?88:kind==1?36:32,kind==0?128:kind==1?52:46);}
+static void portrait_field(int x,int y,unsigned card,unsigned quarter){uint16_t *pal;uint8_t *pix;if(!native_texture(card,2,&pal,&pix))return;unsigned w=quarter&1?38:26,h=quarter&1?26:38;x+=(40-w)/2;y+=(40-h)/2;for(unsigned yy=0;yy<h;++yy)for(unsigned xx=0;xx<w;++xx){unsigned sx=quarter&1?xx*46/w:xx*32/w,sy=quarter&1?yy*32/h:yy*46/h;unsigned src=quarter==0?sy*32+sx:quarter==1?(45-sx)*32+sy:quarter==2?(45-sy)*32+31-sx:sx*32+31-sy;screen[(y+yy)*240+x+xx]=pal[pix[src]];}}
+static void native_panel(int x,int y,unsigned w,unsigned h){for(unsigned yy=0;yy<h;++yy)for(unsigned xx=0;xx<w;++xx)if(x+(int)xx>=0&&x+(int)xx<240&&y+(int)yy>=0&&y+(int)yy<320)screen[(y+yy)*240+x+xx]=native_paper[(yy&31)*32+(xx&31)];native_outline(x,y,w,h,0x9c0c);}
+static void portrait_button(int x,int y,unsigned w,unsigned h,const uint16_t *label,unsigned selected){for(unsigned yy=0;yy<h;++yy)for(unsigned xx=0;xx<w;++xx)if(x+(int)xx>=0&&x+(int)xx<240&&y+(int)yy>=0&&y+(int)yy<320)screen[(y+yy)*240+x+xx]=native_wood[(yy*28/h)*181+xx*181/w];unsigned n=0;while(label[n])++n;unsigned height=14,tw=0;for(unsigned i=0;i<n;++i)tw+=label[i]<128?7:14;int tx=x+((int)w-(int)tw)/2;native_label(tx+1,y+((int)h-14)/2+1,label,height,0x28170a);native_label(tx,y+((int)h-14)/2,label,height,0xffe0b1);if(selected)native_outline(x,y,w,h,0xffe0);}
+/* Off-screen original canvases remain 480x272; only chosen regions are placed. */
+static void native_background_load(unsigned key){if(native_background_key!=key){joey_audio_tick();h1_fseek(native_art_file,native_art_header[6]+key*sizeof(native_background),H1_SEEK_SET);if(h1_fread(native_background,2,480*272,native_art_file)!=480*272)h1_memset(native_background,0,sizeof(native_background));native_background_key=key;joey_audio_tick();}}
+static void native_backdrop(unsigned key){native_background_load(key);for(unsigned y=0;y<320;++y)for(unsigned x=0;x<240;++x)screen[y*240+x]=native_background[(y*272/320)*480+x*2];}

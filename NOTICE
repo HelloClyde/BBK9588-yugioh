@@ -1,0 +1,19 @@
+BBK9588-yugioh — BBK 9588 portrait native card game compatibility port
+Copyright 2026 HelloClyde and contributors.
+
+The 9588 application sources, build tools and original geometric desktop icon
+are licensed under Apache-2.0. The original H1 implementation and its NOTICE
+are preserved by the upstream/ submodule at its recorded commit. The SDK has
+its own Apache-2.0 LICENSE and NOTICE, retained in sdk/.
+
+Yu-Gi-Oh!, Power of Chaos: Joey the Passion, its characters, artwork, music,
+translated text and original software belong to their respective rightsholders.
+The commercial images, font glyph packs, audio, PC program, firmware and
+personal saves are not included in this repository or its public install ZIP.
+
+Screenshots are real emulator interoperability records. The code license does
+not grant rights to the third-party material shown in those screenshots.
+See SOURCE_NOTICE.md and upstream/ASSET_SOURCES.md for the material boundaries.
+
+emulator/signed-audio-volume.patch modifies GPL-2.0-or-later QEMU code.
+That patch retains the underlying file's license and is separate from the BDA.

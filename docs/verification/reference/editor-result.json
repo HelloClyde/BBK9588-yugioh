@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "bda_sha256": "ad8e57161bb31d4a6c95bea03c88ebce64e30e35e68e741fdf807b68668bed2a",
+  "name_pixels": 12,
+  "stat_pixels": 10,
+  "button_pixels": 14,
+  "guest_memory_written": false,
+  "checks": [
+    "original font sizes retained",
+    "four tabs",
+    "selected and unselected rows",
+    "empty side deck",
+    "three-digit page count",
+    "keyboard wrap"
+  ]
+}

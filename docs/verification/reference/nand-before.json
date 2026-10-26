@@ -1,0 +1,47 @@
+{
+  "passed": true,
+  "files": {
+    "FONT.BIN": {
+      "size": 3584125,
+      "clusters": 219,
+      "sha256": "4edf0bcf93137097cc0441b6cd1f6efb84248ca25a9373e2feda542d3ea7c23a",
+      "matches_original": true
+    },
+    "H1ART.PAK": {
+      "size": 801200,
+      "clusters": 49,
+      "sha256": "a110ab5350b4409406cfc352f92589e6857ee3781e26f702ea62d0ea23363d48",
+      "matches_original": true
+    },
+    "H1SCN.PAK": {
+      "size": 522272,
+      "clusters": 32,
+      "sha256": "1cdbc5e4df2e3b5668cb37f201a26d9d8f100c7748bf582ba8d082a6afbdd0d8",
+      "matches_original": true
+    },
+    "H1SND.PAK": {
+      "size": 14551040,
+      "clusters": 889,
+      "sha256": "a5b5ffa3e19857f4a1bf4ee97373bf1d599cd1436e6996b6da6d0523c36e394e",
+      "matches_original": true
+    },
+    "H1UI.PAK": {
+      "size": 12617296,
+      "clusters": 771,
+      "sha256": "0e6c8971488af4c6cc4ce61dbfd8ef95b4ee7cd69b6c88b13a30f99ba408d1ec",
+      "matches_original": true
+    },
+    "Yugioh9588.bda": {
+      "size": 1314060,
+      "clusters": 81,
+      "sha256": "ad8e57161bb31d4a6c95bea03c88ebce64e30e35e68e741fdf807b68668bed2a",
+      "matches_original": true
+    },
+    "C200.bin": {
+      "size": 4652744,
+      "clusters": 284,
+      "sha256": "02a16107b11a3281067871c6fe3d4c289c910d8dfa9924573dd87f00351d6525",
+      "matches_original": true
+    }
+  }
+}
