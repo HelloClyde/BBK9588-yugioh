@@ -2,11 +2,11 @@
 
 将 [HelloClyde/BBKH1-yugioh](https://github.com/HelloClyde/BBKH1-yugioh) 的原生 C 游戏移植到 **BBK 9588 / C200，240×320 竖屏**。保留原规则、AI、1,115 条卡片数值记录、猜拳、组牌、收藏、战绩与双槽存档，使用 9588 原生界面、文件和 PCM 接口。
 
-当前版本：`0.1.0-alpha.1`。尚未发布到远端；下述命令会在本地生成可安装的成品。**尚未进行 9588 真机测试**，验证范围见 [验证记录](docs/VERIFICATION.md)。
+当前版本：`0.1.0-alpha.1`，按预发布版提供。下述命令也可在本地生成可安装的成品。**尚未进行 9588 真机测试**，验证范围见 [验证记录](docs/VERIFICATION.md)。
 
 ## 快速开始
 
-使用成品时，将本地构建的 `dist/BBK9588-yugioh.zip` 解压到设备 A 盘根目录，得到：
+使用成品时，从 [Releases](https://github.com/HelloClyde/BBK9588-yugioh/releases) 下载 `BBK9588-yugioh.zip`，或在本地构建得到 `dist/BBK9588-yugioh.zip`，解压到设备 A 盘根目录。程序与自行提供的资源应位于：
 
 ```text
 A:\应用\程序\游戏王.bda
@@ -78,7 +78,7 @@ python tools/test_host.py --cc gcc --assets .local-assets
 
 成品为 `dist/Yugioh9588.bda`、`dist/BBK9588-yugioh.zip`、`dist/BUILD.json`、`dist/SHA256SUMS.txt`。ZIP 使用固定条目顺序、时间和明确文件清单；不把开发目录整体压缩，也不包含任何个人存档。`BUILD.json` 区分静态构建校验和模拟器验证，CI 编译成功不等于游戏已经做过整机测试。
 
-[Actions 工作流](.github/workflows/build-release.yml) 为 main、PR、手动运行构建并上传临时 artifacts；`v<VERSION>` 标签通过校验后使用同一次构建的产物创建预发布 / Release。发布 job 单独具有写权限，遇到已有同名 Release 会停止，不默认覆盖资产。具体发布步骤见 [发布说明](docs/RELEASING.md)。当前工作流只在本地检查，尚未宣称远端运行成功。
+[Actions 工作流](.github/workflows/build-release.yml) 为 main、PR、手动运行构建并上传临时 artifacts；`v<VERSION>` 标签通过校验后使用同一次构建的产物创建预发布 / Release。发布 job 单独具有写权限，遇到已有同名 Release 会停止，不默认覆盖资产。具体发布步骤见 [发布说明](docs/RELEASING.md)，远端构建和发布状态以对应提交的 [Actions 运行结果](https://github.com/HelloClyde/BBK9588-yugioh/actions) 为准。
 
 ## 感谢
 

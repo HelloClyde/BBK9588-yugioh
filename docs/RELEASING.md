@@ -1,6 +1,6 @@
 # 发布约定
 
-拟用独立仓库名：`HelloClyde/BBK9588-yugioh`。当前只做本地准备，没有创建远端仓库、推送标签或创建 Release。
+独立仓库名：`HelloClyde/BBK9588-yugioh`。以下步骤用于核对每次发布，实际发布状态以 GitHub 的标签、Actions 和 Release 为准。
 
 1. 在干净检出中执行 README 的子模块初始化、工具链安装、源码测试、构建和 `tools/check_release.py`。
 2. 查看 `VERSION` 与 `docs/releases/v<VERSION>.md`。首次候选版本为 `v0.1.0-alpha.1`，未做真机验证，因此标为预发布。
