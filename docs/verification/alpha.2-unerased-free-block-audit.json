@@ -1,0 +1,108 @@
+{
+  "passed": false,
+  "files": {
+    "Yugioh9588.bda": {
+      "matches_build_input": false,
+      "size": 1314316,
+      "clusters": 81,
+      "expected_sha256": "5e97eb8b1f89ad3a17264b969e902b618ba75cdb9b350511146134089515ad7a",
+      "actual_sha256": "51b76c708dfa8d0fc1041f199a4977af7d302977f004e07962f8358c4be61fba",
+      "changed_file_offsets": [
+        224788,
+        224789,
+        225046,
+        225124,
+        225125,
+        225126,
+        225127,
+        239652,
+        239653,
+        239781,
+        239782,
+        240013,
+        240014,
+        240042,
+        240043,
+        245924,
+        245925,
+        245954,
+        245955,
+        245971,
+        245972,
+        246269,
+        246270,
+        252282,
+        252319,
+        252320,
+        254766,
+        254767,
+        254790,
+        254791,
+        254816,
+        254933,
+        259631,
+        259632,
+        259965,
+        259966,
+        260076,
+        260077,
+        264310,
+        264311,
+        264423,
+        264424,
+        264524,
+        264609,
+        264610
+      ]
+    },
+    "FONT.BIN": {
+      "matches_build_input": true,
+      "size": 3584125,
+      "clusters": 219,
+      "expected_sha256": "4edf0bcf93137097cc0441b6cd1f6efb84248ca25a9373e2feda542d3ea7c23a",
+      "actual_sha256": "4edf0bcf93137097cc0441b6cd1f6efb84248ca25a9373e2feda542d3ea7c23a"
+    },
+    "H1UI.PAK": {
+      "matches_build_input": true,
+      "size": 12617296,
+      "clusters": 771,
+      "expected_sha256": "0e6c8971488af4c6cc4ce61dbfd8ef95b4ee7cd69b6c88b13a30f99ba408d1ec",
+      "actual_sha256": "0e6c8971488af4c6cc4ce61dbfd8ef95b4ee7cd69b6c88b13a30f99ba408d1ec"
+    },
+    "H1ART.PAK": {
+      "matches_build_input": true,
+      "size": 801200,
+      "clusters": 49,
+      "expected_sha256": "a110ab5350b4409406cfc352f92589e6857ee3781e26f702ea62d0ea23363d48",
+      "actual_sha256": "a110ab5350b4409406cfc352f92589e6857ee3781e26f702ea62d0ea23363d48"
+    },
+    "H1SCN.PAK": {
+      "matches_build_input": true,
+      "size": 522272,
+      "clusters": 32,
+      "expected_sha256": "1cdbc5e4df2e3b5668cb37f201a26d9d8f100c7748bf582ba8d082a6afbdd0d8",
+      "actual_sha256": "1cdbc5e4df2e3b5668cb37f201a26d9d8f100c7748bf582ba8d082a6afbdd0d8"
+    },
+    "H1SND.PAK": {
+      "matches_build_input": true,
+      "size": 14551040,
+      "clusters": 889,
+      "expected_sha256": "a5b5ffa3e19857f4a1bf4ee97373bf1d599cd1436e6996b6da6d0523c36e394e",
+      "actual_sha256": "a5b5ffa3e19857f4a1bf4ee97373bf1d599cd1436e6996b6da6d0523c36e394e"
+    }
+  },
+  "saves": {
+    "0": {
+      "bytes": 1377,
+      "sequence": 5,
+      "crc_valid": true,
+      "sha256": "af5955b6c69a9e6ec65a7e4e15defaa143e61770637b74d87e81eb87fc56db84"
+    },
+    "1": {
+      "bytes": 1377,
+      "sequence": 6,
+      "crc_valid": true,
+      "sha256": "3cb7389c33b59c9e5b87c75ce54d1525d8bb2530e4dead874b506e07d112d79f"
+    }
+  }
+}

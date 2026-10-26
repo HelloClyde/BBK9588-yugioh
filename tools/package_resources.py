@@ -7,6 +7,7 @@ import subprocess
 import zipfile
 
 from check_release import ROOT, check
+from resource_paths import RESOURCE_DIRECTORY, device_root
 
 
 def sha(data):
@@ -33,6 +34,8 @@ def package(program_dir, assets, output):
         raise ValueError('Commit reviewed packaging sources before creating release packages')
     build = check(program_dir)
     version = build['version']
+    if build.get('resource_directory') != RESOURCE_DIRECTORY:
+        raise ValueError('The BDA uses a different resource directory')
     evidence = json.loads((ROOT / 'docs/verification/public-build.json').read_text(encoding='utf8'))
     if not evidence['passed'] or evidence['bda_sha256'] != build['bda_sha256']:
         raise ValueError('The published BDA lacks matching firmware verification')
@@ -44,7 +47,7 @@ def package(program_dir, assets, output):
         data = (assets / name).read_bytes()
         if len(data) != expected['bytes'] or sha(data) != expected['sha256']:
             raise ValueError('Incompatible resource: ' + name)
-        payload['YUGIOH/' + name] = data
+        payload[RESOURCE_DIRECTORY + '/' + name] = data
     names = {
         'full': f'BBK9588-yugioh-v{version}-full.zip',
         'resources': f'BBK9588-yugioh-v{version}-resources.zip',
@@ -58,11 +61,13 @@ def package(program_dir, assets, output):
         upstream_commit=build['upstream_commit'],
         resource_source_release='https://github.com/HelloClyde/BBKH1-yugioh/releases/tag/v0.1.1',
         resources=source, archives=names,
+        resource_directory=RESOURCE_DIRECTORY,
+        resource_roots=[device_root(drive) for drive in ('A', 'B')],
         third_party_resources_under_apache_2_0=False,
         physical_9588_tested=False,
     )
-    payload['YUGIOH/resources-manifest.json'] = json_bytes(source)
-    payload['YUGIOH/资源说明.txt'] = (ROOT / 'assets/RESOURCE_RELEASE_README.txt').read_bytes()
+    payload[RESOURCE_DIRECTORY+'/resources-manifest.json'] = json_bytes(source)
+    payload[RESOURCE_DIRECTORY+'/资源说明.txt'] = (ROOT / 'assets/RESOURCE_RELEASE_README.txt').read_bytes()
     payload['RESOURCE_BUILD.json'] = json_bytes(manifest)
     for name in ('LICENSE', 'NOTICE', 'SOURCE_NOTICE.md'):
         payload[name] = (ROOT / name).read_bytes()

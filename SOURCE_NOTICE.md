@@ -17,4 +17,4 @@
 
 《Yu-Gi-Oh! Power of Chaos: Joey the Passion》及有关角色、卡片图像、音乐归原权利人，原游戏发行署名 KONAMI。本仓库为独立、非官方兼容实现。来源说明不是第三方授权书；代码许可证不会自动许可原作、汉化内容或字体。
 
-外部资源的精确大小和 SHA-256 保留在固定上游 `assets/reference-manifest.json` 中。资源来源为 [H1 v0.1.1 配套资源 Release](https://github.com/HelloClyde/BBKH1-yugioh/releases/tag/v0.1.1)，9588 包仅调整安装目录为 `YUGIOH/`，不重新生成素材。导入和打包工具只读取本地提供的文件，不提供下载商业资源的脚本。公开源码与 CI 程序包仍不包含五个 BIN/PAK；Release 增补包的构成和校验见 [资源发布说明](https://github.com/HelloClyde/BBK9588-yugioh/blob/main/docs/RESOURCE_RELEASE.md)。
+外部资源的精确大小和 SHA-256 保留在固定上游 `assets/reference-manifest.json` 中。资源来源为 [H1 v0.1.1 配套资源 Release](https://github.com/HelloClyde/BBKH1-yugioh/releases/tag/v0.1.1)，9588 包仅调整安装目录为 `应用/数据/游戏/YUGIOH/`，不重新生成素材。导入和打包工具只读取本地提供的文件，不提供下载商业资源的脚本。公开源码与 CI 程序包仍不包含五个 BIN/PAK；Release 增补包的构成和校验见 [资源发布说明](https://github.com/HelloClyde/BBK9588-yugioh/blob/main/docs/RESOURCE_RELEASE.md)。

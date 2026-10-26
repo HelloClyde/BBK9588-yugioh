@@ -56,7 +56,7 @@ __attribute__((section(".text.bda_main"))) int bda_main(void){
     dirty=1;native_large_key=native_background_key=native_menu_key=native_hand_count=0xffffffffu;native_focus=native_stat_focus=-1;profile_slot=-1;
     if(!native_load()||!font_assets_valid()||!scene_load()){
         if(native_file)h1_fclose(native_file);if(native_art_file)h1_fclose(native_art_file);if(scene_file)h1_fclose(scene_file);
-        bda_msgbox("Yugioh9588","Missing or incompatible assets.\nCopy FONT.BIN, H1UI.PAK, H1ART.PAK,\nH1SCN.PAK to A:\\YUGIOH\\");return 1;
+        bda_msgbox("Yugioh9588","Missing or incompatible assets.\nCopy the five resources to\n" JOEY_RESOURCE_ROOT_A "\nor\n" JOEY_RESOURCE_ROOT_B);return 1;
     }
     profile_load();
     bda_frame_desc_t desc;bda_gui_message_t msg;bda_memset(&desc,0,sizeof(desc));bda_memset(&msg,0,sizeof(msg));

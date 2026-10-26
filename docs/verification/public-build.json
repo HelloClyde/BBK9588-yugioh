@@ -1,54 +1,122 @@
 {
   "passed": true,
-  "bda_sha256": "ca9e8abf2ce51910488178a427dd5b37e4cc077bb94b9665fe20410e0d7a3c7d",
+  "bda_sha256": "5e97eb8b1f89ad3a17264b969e902b618ba75cdb9b350511146134089515ad7a",
   "sdk_commit": "f2fcbe020e7e94014c33d7e5c593802e4b1e3034",
   "upstream_commit": "f1e83a84d8a9dbe686bb1eef064118e409b46274",
-  "load_image_sha256": "1f38374191da69402d819e6d9c2c1811e7775c569d5e9b4d11bfbb4809fbe57c",
-  "text_sha256": "7282b5c5075cc71de4507eab27752a8cfdbd8e9345f04f3c2243d7a86b5737f0",
-  "reference_bda_sha256": "ad8e57161bb31d4a6c95bea03c88ebce64e30e35e68e741fdf807b68668bed2a",
-  "same_load_image_as_reference": true,
+  "text_sha256": "1ef1284c0b6b622a658cb3b3d3f62ebb8db395d9e33444a0ded266f4616aa365",
+  "load_image_sha256": "0fe411a06d13bd8d5db18b3d4ab221f716a8943ec297dfb8862c45f56fb7dfa9",
+  "resource_directory": "应用/数据/游戏/YUGIOH",
+  "resource_roots": [
+    "A:\\应用\\数据\\游戏\\YUGIOH\\",
+    "B:\\应用\\数据\\游戏\\YUGIOH\\"
+  ],
   "guest_memory_written": false,
   "physical_9588_tested": false,
+  "firmware_tested_drives": [
+    "A"
+  ],
+  "b_drive_host_tests": "docs/verification/resource-paths.json",
+  "scope": "resource loading, menu input, dual-slot save and exit/relaunch",
   "checks": {
-    "short_and_long_menu_input": {
-      "passed": true,
-      "long_press_steps": 1
+    "five_resources_at_new_path": {
+      "FONT.BIN": "4edf0bcf93137097cc0441b6cd1f6efb84248ca25a9373e2feda542d3ea7c23a",
+      "H1ART.PAK": "a110ab5350b4409406cfc352f92589e6857ee3781e26f702ea62d0ea23363d48",
+      "H1SCN.PAK": "1cdbc5e4df2e3b5668cb37f201a26d9d8f100c7748bf582ba8d082a6afbdd0d8",
+      "H1SND.PAK": "a5b5ffa3e19857f4a1bf4ee97373bf1d599cd1436e6996b6da6d0523c36e394e",
+      "H1UI.PAK": "0e6c8971488af4c6cc4ce61dbfd8ef95b4ee7cd69b6c88b13a30f99ba408d1ec"
     },
-    "touch_escape_and_dual_slot_save": {
-      "passed": true,
-      "restored_main_count": 42,
-      "sequence": 2
+    "short_and_held_menu_keys": {
+      "passed": true
     },
-    "held_direction_repeat": {
+    "dual_slot_save_in_new_directory": {
       "passed": true,
-      "start_focus": 1,
-      "end_focus": 5
+      "saves": [
+        {
+          "sequence": 9,
+          "main_count": 41,
+          "wins": 0,
+          "losses": 0,
+          "sha256": "6838afb33232a077388e56c13799989437fb7b031c2f05da9fe054850cf11a5a"
+        },
+        {
+          "sequence": 10,
+          "main_count": 42,
+          "wins": 0,
+          "losses": 0,
+          "sha256": "78c799cf3238637240d3fb691ba8af06580648bb51b1c612379b2a593a3e2378"
+        },
+        {
+          "sequence": 11,
+          "main_count": 41,
+          "wins": 0,
+          "losses": 0,
+          "sha256": "65e1b87fabe32e9ffd9999b557104d7802fb0acbf9779714b42ee0e6598648ab"
+        },
+        {
+          "sequence": 12,
+          "main_count": 42,
+          "wins": 0,
+          "losses": 0,
+          "sha256": "b03958557deae7e3fe46db2632524199cd707844d954969cccaa9fc3e4f565d3"
+        },
+        {
+          "sequence": 13,
+          "main_count": 41,
+          "wins": 0,
+          "losses": 0,
+          "sha256": "dbac783a4da6fde4760a05012183ae4657c020e4ff5d6f4b1ad4b1e6fece201f"
+        },
+        {
+          "sequence": 14,
+          "main_count": 42,
+          "wins": 0,
+          "losses": 0,
+          "sha256": "5e180ba15c68413f7a65be2c1ad5e232ecd3b96613e77ee2f1230311bbd427c8"
+        },
+        {
+          "sequence": 15,
+          "main_count": 41,
+          "wins": 0,
+          "losses": 0,
+          "sha256": "2bae22659288a0081be6ac6a76367cecd53f54e418a1c3ad82edef46b1642270"
+        },
+        {
+          "sequence": 16,
+          "main_count": 42,
+          "wins": 0,
+          "losses": 0,
+          "sha256": "456266f3d1b15c6b75be3d78ec0760733debe4f4ea14c7ab79a58d63ad5b1084"
+        }
+      ],
+      "program_checked_after_each_save": true
     },
     "normal_exit_relaunch_saved_profile": {
       "passed": true,
       "save": {
-        "sequence": 2,
+        "sequence": 16,
         "main_count": 42,
         "wins": 0,
         "losses": 0,
-        "sha256": "22422f04963b473b418554884dc8816a7704de7c3d99ad1694fb7492b3128cba"
+        "sha256": "456266f3d1b15c6b75be3d78ec0760733debe4f4ea14c7ab79a58d63ad5b1084"
       }
     }
   },
   "program_at_start": {
-    "installed_bda_sha256": "ca9e8abf2ce51910488178a427dd5b37e4cc077bb94b9665fe20410e0d7a3c7d",
-    "loaded_text_sha256": "7282b5c5075cc71de4507eab27752a8cfdbd8e9345f04f3c2243d7a86b5737f0",
+    "installed_bda_sha256": "5e97eb8b1f89ad3a17264b969e902b618ba75cdb9b350511146134089515ad7a",
+    "loaded_text_sha256": "1ef1284c0b6b622a658cb3b3d3f62ebb8db395d9e33444a0ded266f4616aa365",
     "text_bytes": 441184
   },
   "program_after_relaunch": {
-    "installed_bda_sha256": "ca9e8abf2ce51910488178a427dd5b37e4cc077bb94b9665fe20410e0d7a3c7d",
-    "loaded_text_sha256": "7282b5c5075cc71de4507eab27752a8cfdbd8e9345f04f3c2243d7a86b5737f0",
+    "installed_bda_sha256": "5e97eb8b1f89ad3a17264b969e902b618ba75cdb9b350511146134089515ad7a",
+    "loaded_text_sha256": "1ef1284c0b6b622a658cb3b3d3f62ebb8db395d9e33444a0ded266f4616aa365",
     "text_bytes": 441184
   },
-  "environment": {
-    "emulator_release": "0.1.5",
-    "qemu_sha256": "6df16196d5acabdb96447e04150bcd4f65f34a9ae51ec5981177ca435bfe7002",
-    "qemu_variant": "installed release binary; no local audio relink",
-    "audio_listening_checked_in_this_run": false
+  "emulator": {
+    "name": "bbk9588-emulator v0.1.5 official QEMU",
+    "binary_sha256": "6df16196d5acabdb96447e04150bcd4f65f34a9ae51ec5981177ca435bfe7002",
+    "private_fat_cache": true,
+    "base_nand_free_blocks_normalized": 23,
+    "firmware_modified": false,
+    "runtime_hooks": false
   }
 }

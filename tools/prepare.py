@@ -5,6 +5,10 @@ layouts are supplied by src/*.inc; generated C remains inspectable in build/.
 """
 from pathlib import Path
 import re
+if __package__:
+    from .resource_paths import header
+else:
+    from resource_paths import header
 
 ROOT = Path(__file__).resolve().parents[1]
 UP = ROOT / 'upstream'
@@ -34,6 +38,7 @@ def extract(source, name):
 
 def prepare(out):
     out.mkdir(parents=True, exist_ok=True)
+    (out / 'duel_paths.h').write_text(header(), encoding='ascii')
     source = (UP / 'src/duel_h1.c').read_text(encoding='utf8')
     source = source.replace('#include "h1_sdk.h"', '#include "platform9588.h"')
     source = source.replace('screen[480*272]', 'screen[240*320]')

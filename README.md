@@ -2,24 +2,24 @@
 
 将 [HelloClyde/BBKH1-yugioh](https://github.com/HelloClyde/BBKH1-yugioh) 的原生 C 游戏移植到 **BBK 9588 / C200，240×320 竖屏**。保留原规则、AI、1,115 条卡片数值记录、猜拳、组牌、收藏、战绩与双槽存档，使用 9588 原生界面、文件和 PCM 接口。
 
-当前版本：`0.1.0-alpha.1`，按预发布版提供。下述命令也可在本地生成可安装的成品。**尚未进行 9588 真机测试**，验证范围见 [验证记录](docs/VERIFICATION.md)。
+当前版本：`0.1.0-alpha.2`，按预发布版提供。下述命令也可在本地生成可安装的成品。**尚未进行 9588 真机测试**，验证范围见 [验证记录](docs/VERIFICATION.md)。
 
 ## 快速开始
 
-使用成品时，从 [Releases](https://github.com/HelloClyde/BBK9588-yugioh/releases/tag/v0.1.0-alpha.1) 下载 **`BBK9588-yugioh-v0.1.0-alpha.1-full.zip` 完整安装包**，直接解压到设备 A 盘根目录，得到：
+使用成品时，从 [Releases](https://github.com/HelloClyde/BBK9588-yugioh/releases/tag/v0.1.0-alpha.2) 下载 **`BBK9588-yugioh-v0.1.0-alpha.2-full.zip` 完整安装包**，直接解压到设备 A 盘根目录，得到：
 
 ```text
 A:\应用\程序\游戏王.bda
-A:\YUGIOH\FONT.BIN
-A:\YUGIOH\H1UI.PAK
-A:\YUGIOH\H1ART.PAK
-A:\YUGIOH\H1SCN.PAK
-A:\YUGIOH\H1SND.PAK
+A:\应用\数据\游戏\YUGIOH\FONT.BIN
+A:\应用\数据\游戏\YUGIOH\H1UI.PAK
+A:\应用\数据\游戏\YUGIOH\H1ART.PAK
+A:\应用\数据\游戏\YUGIOH\H1SCN.PAK
+A:\应用\数据\游戏\YUGIOH\H1SND.PAK
 ```
 
 **完整安装包已经包含全部五个运行资源，无需另下资源包。** 刷新桌面后，从“娱乐天地”启动“游戏王”。也支持 B 盘同名资源目录，优先 A 盘。完整安装说明见 [完整包安装](docs/INSTALL-FULL.md)。
 
-已单独下载 BDA 的使用者可配合 `BBK9588-yugioh-v0.1.0-alpha.1-resources.zip`，同样解压到 A 盘根目录。原 `BBK9588-yugioh.zip` 是保留的 **不带资源的 CI 程序包**，仅复制其中 BDA 不能运行；它的手动安装及存档迁移说明见 [INSTALL.md](INSTALL.md)。源码不收录五个 BIN/PAK，增补资源与完整包的来源和校验见 [资源发布说明](docs/RESOURCE_RELEASE.md)。
+已单独下载 BDA 的使用者可配合 `BBK9588-yugioh-v0.1.0-alpha.2-resources.zip`，同样解压到 A 盘根目录。原 `BBK9588-yugioh.zip` 是保留的 **不带资源的 CI 程序包**，仅复制其中 BDA 不能运行；它的手动安装及存档迁移说明见 [INSTALL.md](INSTALL.md)。源码不收录五个 BIN/PAK，增补资源与完整包的来源和校验见 [资源发布说明](docs/RESOURCE_RELEASE.md)。
 
 方向键选择、确定执行、返回关闭页面；决斗中返回打开菜单。点卡片先选中，再点执行；底部“盖放”切换盖放模式，“详情”查看选中牌。选牌弹窗提供“返回 / 详情 / 确认”，方向右键也能看当前高亮牌；返回保留选项和页码。手牌超过六张时可左右翻页，长卡片说明可上下滚动。
 

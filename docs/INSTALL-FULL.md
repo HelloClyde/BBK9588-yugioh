@@ -6,17 +6,21 @@
 
 ```text
 A:\应用\程序\游戏王.bda
-A:\YUGIOH\FONT.BIN
-A:\YUGIOH\H1UI.PAK
-A:\YUGIOH\H1ART.PAK
-A:\YUGIOH\H1SCN.PAK
-A:\YUGIOH\H1SND.PAK
+A:\应用\数据\游戏\YUGIOH\FONT.BIN
+A:\应用\数据\游戏\YUGIOH\H1UI.PAK
+A:\应用\数据\游戏\YUGIOH\H1ART.PAK
+A:\应用\数据\游戏\YUGIOH\H1SCN.PAK
+A:\应用\数据\游戏\YUGIOH\H1SND.PAK
 ```
 
 本包已经包含全部五个运行资源，无需再下载资源包。刷新桌面，从“娱乐天地”启动“游戏王”。不要把整个 ZIP 当作一个子文件夹复制到 A 盘。
 
+也可把五个资源放在 `B:\应用\数据\游戏\YUGIOH\`；程序逐个先尝试 A 盘同名文件，打不开时再尝试 B 盘。存档写到实际加载 `H1UI.PAK` 所在盘的同一资源目录。
+
 方向键选择、确定执行、返回关闭页面；对局中返回打开菜单。点卡片先选中，再点执行。选牌弹窗用“详情”或右方向键查看牌面，返回后保留选择和页码。
 
-安装包不含个人存档。已有的 `YUGIOH/JNAT0.SAV` 和 `JNAT1.SAV` 保留；程序继续在实际资源目录保存。程序、资源和构建信息的哈希见 `BUILD.json`、`RESOURCE_BUILD.json` 及 Release 校验清单。
+安装包不含个人存档。已有的 `应用/数据/游戏/YUGIOH/JNAT0.SAV` 和 `JNAT1.SAV` 保留；程序继续在实际资源目录保存。程序、资源和构建信息的哈希见 `BUILD.json`、`RESOURCE_BUILD.json` 及 Release 校验清单。
+
+从 alpha.1 升级时，原资源在盘根的 `YUGIOH` 目录。若要保留进度，请把其中的 `JNAT0.SAV` 和 `JNAT1.SAV` 一并复制到同一盘的新资源目录；保留原文件作为备份。新版本不再从盘根 `YUGIOH` 读取资源。
 
 自有代码的 Apache-2.0 许可证不适用于原作卡图、汉化文本、字库和音乐。其来源和许可缺项见随包的 `SOURCE_NOTICE.md`。

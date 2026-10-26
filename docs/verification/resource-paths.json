@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "checks": 93,
+  "gbk_paths": true,
+  "a_preferred": true,
+  "b_fallback": true,
+  "resources": 5
+}

@@ -52,12 +52,15 @@ def wait_idle(timeout=45):
     while time.monotonic()<end:
         d=diag()
         if d['pending']==8:live.key(9);continue
-        if d['active']==0 and d['pending']==0 and d['response']==255:return d
+        if d['view']==3 and d['active']==0 and d['phase']>=2 and d['pending']==0 and d['response']==255 and u32('ai_stage')==0:
+            time.sleep(.2)
+            settled=diag()
+            if settled['revision']==d['revision']:return settled
         if d['view']==5:return d
         time.sleep(.35)
     raise AssertionError(('AI did not settle',diag()))
 def save_export(slot):
-    data=live.req('/api/files/export',path=f'/YUGIOH/JNAT{slot}.SAV').content
+    data=live.req('/api/files/export',path=f'{live.RESOURCE_PATH}/JNAT{slot}.SAV').content
     assert len(data)==1377,len(data)
     buf=bytearray(data);expected=struct.unpack_from('<I',buf,20)[0];buf[20:24]=bytes(4);assert zlib.crc32(buf)==expected
     (OUT/f'firmware-JNAT{slot}.SAV').write_bytes(data)

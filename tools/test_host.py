@@ -20,6 +20,10 @@ def main():
     def run(cmd,**kw):return subprocess.run([str(x) for x in cmd],check=True,cwd=ROOT,env=env,**kw)
     run([sys.executable,ROOT/'upstream/tools/test_host.py','--cc',cc,'--out',out/'rules'])
     prepare(ROOT/'build')
+    paths_executable=out/('resource-paths.exe' if os.name=='nt' else 'resource-paths')
+    run([cc,'-std=c11','-I',ROOT/'build',ROOT/'tests/test_resource_paths.c','-o',paths_executable])
+    paths_report=json.loads(run([paths_executable],capture_output=True,text=True).stdout)
+    (out/'resource-paths.json').write_text(json.dumps(paths_report,indent=2)+'\n',encoding='utf8')
     source=(ROOT/'build/duel9588.c').read_text(encoding='utf8')
     source=source.replace('#include "platform9588.h"','#include "frontend_host_platform.h"').replace('#include "entry9588.inc"','#include "test_selection.inc"')
     host=ROOT/'build/selection_host.c';host.write_text(source,encoding='utf8')
@@ -34,6 +38,7 @@ def main():
     report=json.loads(result.stdout)
     report['ui_source_sha256']=hashlib.sha256((ROOT/'src/ui9588.inc').read_bytes()).hexdigest()
     report['uses_local_resources']=bool(args.assets)
+    report['resource_paths']=paths_report
     if args.assets:
         audio=out/('audio.exe' if os.name=='nt' else 'audio')
         run([cc,'-std=c11','-O2','-I',ROOT/'tests','-I',ROOT/'upstream/src','-I',ROOT/'upstream/data',ROOT/'tests/test_audio.c',ROOT/'upstream/src/duel_ima.c','-o',audio])

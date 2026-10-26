@@ -20,7 +20,8 @@ def check(folder, tag=None):
     assert seen==expected
     program=(folder/'Yugioh9588.bda').read_bytes()
     assert hashlib.sha256(program).hexdigest()==report['bda_sha256']
-    allowed={'应用/程序/游戏王.bda','BUILD.json','INSTALL.md','LICENSE','NOTICE','SOURCE_NOTICE.md','YUGIOH/需要外部资源.txt','YUGIOH/resources-manifest.json'}
+    resource_directory=report.get('resource_directory','YUGIOH')
+    allowed={'应用/程序/游戏王.bda','BUILD.json','INSTALL.md','LICENSE','NOTICE','SOURCE_NOTICE.md',resource_directory+'/需要外部资源.txt',resource_directory+'/resources-manifest.json'}
     with zipfile.ZipFile(folder/'BBK9588-yugioh.zip') as archive:
         assert set(archive.namelist())==allowed
         assert archive.read('应用/程序/游戏王.bda')==program

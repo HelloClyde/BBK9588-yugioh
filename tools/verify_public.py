@@ -26,7 +26,8 @@ def main():
     build=json.loads((ROOT/'build/build.json').read_text(encoding='utf8'))
     reference=json.loads((ROOT/'docs/verification/reference/load-image.json').read_text(encoding='utf8'))
     report={'passed':False,'bda_sha256':build['bda_sha256'],'sdk_commit':build['sdk_commit'],'upstream_commit':build['upstream_commit'],'load_image_sha256':build['load_image_sha256'],'text_sha256':build['text_sha256'],'reference_bda_sha256':reference['reference_bda_sha256'],'same_load_image_as_reference':build['load_image_sha256']==reference['load_image_sha256'],'guest_memory_written':False,'physical_9588_tested':False,'checks':{}}
-    assert report['same_load_image_as_reference']
+    report['resource_directory']=build['resource_directory']
+    report['resource_roots']=build['resource_roots']
     alive()
     assert v.diag()['view']==2
     report['program_at_start']=v.verify_program()
@@ -59,8 +60,13 @@ def main():
         if phase==0:live.touch(120,110)
         elif phase==2:live.touch(65,281)
         else:live.touch(120,281)
-    v.wait_idle();live.key(6);assert v.diag()['focus']==0
-    live.key(7);start=v.diag()['focus'];assert start==1
+    v.wait_idle();live.touch(31,251);assert v.diag()['focus']==0
+    # HTTP latency can stretch a .22 s pulse past the firmware's .35 s repeat
+    # threshold. Use a shorter pulse and verify movement before testing hold.
+    live.req('/api/key',True,code=7,down=1)
+    try:time.sleep(.04)
+    finally:live.req('/api/key',True,code=7,down=0)
+    time.sleep(.35);start=v.diag()['focus'];assert 0<start<v.diag()['hand']-1
     live.req('/api/key',True,code=7,down=1);time.sleep(.85);live.req('/api/key',True,code=7,down=0);time.sleep(.3)
     d=v.diag();assert d['focus']>=min(start+2,d['hand']-1) and d['focus']<d['hand'],d
     report['checks']['held_direction_repeat']={'passed':True,'start_focus':start,'end_focus':d['focus']}

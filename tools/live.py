@@ -2,9 +2,11 @@
 import argparse,json,time,os
 from pathlib import Path
 import requests
+from resource_paths import RESOURCE_DIRECTORY
 ROOT=Path(__file__).resolve().parents[1]
 BASE=os.environ.get('YUGIOH_EMULATOR_URL','http://127.0.0.1:8016')
 PROGRAM_PATH=os.environ.get('YUGIOH_PROGRAM_PATH','/应用/程序/游戏王.bda')
+RESOURCE_PATH=os.environ.get('YUGIOH_RESOURCE_PATH','/'+RESOURCE_DIRECTORY)
 def req(endpoint,post=False,**params):
     r=(requests.post if post else requests.get)(BASE+endpoint,params=params,timeout=30);r.raise_for_status();return r
 def key(code,count=1):

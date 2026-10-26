@@ -5,7 +5,7 @@
   H1SCN.PAK
   H1SND.PAK
 
-解压到设备 A 盘根目录，资源应位于 A:\YUGIOH\。
+解压到设备 A 盘根目录，资源应位于 A:\应用\数据\游戏\YUGIOH\。
 原文件来自 HelloClyde/BBKH1-yugioh v0.1.1 配套资源，字节与固定上游哈希相同。
 卡图、纹理、手势、字库、汉化文本和音频继续使用原资源。
 resources-manifest.json 记录每个文件的大小和 SHA-256。

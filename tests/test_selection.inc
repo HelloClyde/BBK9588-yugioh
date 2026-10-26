@@ -33,6 +33,10 @@ static void ppm(const char *name){
     for(unsigned i=0;i<240*320;++i){uint16_t c=screen[i];unsigned char rgb[3]={(c>>11)*255/31,((c>>5)&63)*255/63,(c&31)*255/31};fwrite(rgb,1,3,f);}fclose(f);
 }
 int main(void){
+    native_resource_drive=1;profile_load();
+    CHECK(profile_paths==profile_roots[1]);CHECK(profile_paths[0][0]=='B');
+    native_resource_drive=0;profile_load();
+    CHECK(profile_paths==profile_roots[0]);CHECK(profile_paths[0][0]=='A');
 #ifdef JOEY_UI_WITH_ASSETS
     CHECK(native_load());CHECK(font_assets_valid());CHECK(scene_load());
 #endif

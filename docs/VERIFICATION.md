@@ -1,65 +1,42 @@
 # 验证记录
 
-本地检查日期：2026-10-26。固定依赖见 `dependencies.json`，应用兼容封装见 SDK_COMPATIBILITY.md。
+当前版本：`0.1.0-alpha.2`。固定 SDK 和上游提交不变，见 `dependencies.json`。
 
-## 当前公开候选 BDA
+本版将资源和存档根目录调整为 `A:\应用\数据\游戏\YUGIOH\`，兼容 B 盘同名目录；程序优先 A 盘文件，打不开时尝试 B 盘。新路径由同一配置生成设备 GBK 字符串和 ZIP 内的 UTF-8 目录。
 
-| 项目 | 结果 |
-|---|---|
-| 候选版本 | `0.1.0-alpha.1` |
-| 完整 BDA SHA-256 | `ca9e8abf2ce51910488178a427dd5b37e4cc077bb94b9665fe20410e0d7a3c7d` |
-| 大小 | 1,314,060 字节 |
-| 完整载入映像 SHA-256 | `1f38374191da69402d819e6d9c2c1811e7775c569d5e9b4d11bfbb4809fbe57c` |
-| `.text` SHA-256 | `7282b5c5075cc71de4507eab27752a8cfdbd8e9345f04f3c2243d7a86b5737f0` |
-| SDK | `f2fcbe020e7e94014c33d7e5c593802e4b1e3034`，干净公开检出 |
-| 上游游戏 | `f1e83a84d8a9dbe686bb1eef064118e409b46274`，未修改 |
-| 工具链 | MIPS GNU GCC 15.2.0；安装归档 SHA-256 已与 SDK 安装器的 `8ba866e25c9826ee04ab4310365d264e3e73769e3738bb58ae38fd6740b7ee8d` 核对 |
-| 本地主机 | Windows、Python 3.11.5、Pillow 12.3.0、pyelftools 0.33 |
+## 确切程序
 
-已经通过标题 GBK、分类 4（娱乐天地）、入口 `0x81c00020`、四幅 VX 图标、header/checksum、静态载入窗口与硬件浮点指令扫描。公开桌面图标由几何代码生成，未把原卡片插画像素放进 BDA 图标区。
+- BDA SHA-256：`5e97eb8b1f89ad3a17264b969e902b618ba75cdb9b350511146134089515ad7a`，1,314,316 字节。
+- 载入映像 SHA-256：`0fe411a06d13bd8d5db18b3d4ab221f716a8943ec297dfb8862c45f56fb7dfa9`。
+- `.text` SHA-256：`1ef1284c0b6b622a658cb3b3d3f62ebb8db395d9e33444a0ded266f4616aa365`。
+- SDK：`f2fcbe020e7e94014c33d7e5c593802e4b1e3034`。
+- 上游：`f1e83a84d8a9dbe686bb1eef064118e409b46274`。
+- MIPS GCC 15.2.0，Pillow 12.3.0，pyelftools 0.33。
 
-## 干净构建和主机检查
+## 主机检查
 
-- 只从 Git 取得本仓库及固定 SDK / 上游，不取得工作区未提交的 SDK 文件或五个原素材。
-- 两次独立输出目录构建的 BDA、安装 ZIP、BUILD.json 和 SHA256SUMS.txt 逐字节一致；记录见 `verification/reproducibility.json`。该清单对应其记录的源提交；文档提交会改变 BUILD.json 的 `source_commit`，实际交付始终以对应 `dist/SHA256SUMS.txt` 为准。
-- 原生规则 1,454,892 项，卡组/存档 4,691 项，均零失败，见 `verification/host-rules.json`。
-- 不带商业资源时选牌 UI 214 项断言通过；带使用者本地资源时 217 项及生产音频宿主测试通过，见 `verification/host-ui.json`。这些是宿主检查，不冒充固件执行。
-- README 六张图片均为仓库相对路径。Git 和源码 CI 程序 ZIP 的明确文件清单检查通过，没有原资源、固件、NAND、个人存档或工具链。后续增补的完整安装和资源 ZIP 按 [资源发布说明](RESOURCE_RELEASE.md) 单独检查，仅包含白名单中的五个原资源及说明，不改变本次确切 BDA。
-- Actions YAML、作业依赖、读写权限和官方 Action 接口已本地检查；远端 Actions 状态以对应提交的实际运行结果为准。
+固定上游规则 1,454,892 项、卡组和存档 4,691 项均零失败；带本地资源的前端 221 项断言和生产音频测试通过。见 `verification/host-ui.json`。
 
-## 当前确切 BDA 的固件检查
+新增资源路径回归 93 项，检查真实生成的设备路径头文件：GBK 字节与目标中文目录一致；五个资源分别覆盖 A 盘可用、B 盘可用、两盘可用及两盘缺失；A 盘优先、B 盘回退和空驱动输出指针均符合预期。生产前端的 `profile_load` 另验证 A/B 选择后使用相应存档根目录。见 `verification/resource-paths.json`。
 
-使用 `bbk9588-emulator 0.1.5` 官方发行版 QEMU，二进制 SHA-256：
-`6df16196d5acabdb96447e04150bcd4f65f34a9ae51ec5981177ca435bfe7002`。
-测试使用独立 NAND 与私有 FAT 缓存，未停止或替换原有其他对局。
+## 固件与安装包
 
-`verification/public-build.json` 绑定上面的完整 BDA 哈希，实际通过：
+当前确切 BDA 的独立官方模拟器验证见 `verification/public-build.json`。A 盘新目录实际通过启动、菜单短按/长按、触摸编辑、八次双槽保存及正常退出重开检查。每次保存后核对完整程序和内存代码；最终存档序号为 16、主卡组 42 张。离线检查程序、五个资源和两槽 CRC 全部通过，见 `verification/alpha.2-resource-integrity.json`；测试镜像中没有盘根 `YUGIOH`，避免旧目录掩盖错误。B 盘回退目前由主机回归验证，未宣称做过 B 盘固件或真机验证。
 
-- 冷启动后进入主菜单；方向短按和菜单长按没有误退出。
-- 对局中方向长按重复，手牌焦点由 1 移到 5。
-- 触摸选项、返回及合成 ESC；关于页、组牌页和决斗暂停菜单正常。
-- 新建双槽存档，增减卡片、保存、CRC、恢复原主卡组数量。
-- 正常退出并从系统重新启动，读取同一序号、卡组数量和文件哈希。
-- 启动和重开后的完整内存 `.text` 均与构建一致；已装 BDA 的 SHA-256 保持原值。
+完整安装包和独立资源包使用 `应用/数据/游戏/YUGIOH/`，程序仍在 `应用/程序/游戏王.bda`。五个资源逐个保持上游原始 SHA-256。完整包中的 BDA 必须与本版本 CI 程序逐字节一致，打包及下载校验按 [资源发布说明](RESOURCE_RELEASE.md) 执行；不包含存档、固件或 NAND。
 
-停止本任务 guest 后，离线读取 FAT 簇链并逐个核对程序及五个原资源，全部保持原值，见 `verification/public-resource-integrity.json`。本次没有重新宣称官方发行版模拟器的听感已修复。
+## 基础 NAND 的空闲块问题
 
-## 可复用的前一版行为证据
+本次使用官方 QEMU 对原基础镜像进行多次存档时，再次发现程序文件内容变化。首次候选有 45 字节变化；去掉全局 flush 的独立对照在第七次存档也出现 36 字节变化，因此该对照不能支持将异常归因于全局 flush。两份异常 NAND 和存档均在本机冻结保留，见 `verification/alpha.2-unerased-free-block-audit.json` 与 `alpha.2-no-flush-control-audit.json`。
 
-`verification/reference/` 保留前一版完整 BDA：
-`ad8e57161bb31d4a6c95bea03c88ebce64e30e35e68e741fdf807b68668bed2a`。
-该版已完成完整对局、选牌详情、卡组/战绩保存、实际音频波形和缺样检查。
+原基础镜像的物理块 90–112 标为 FTL 空闲，用户数据全部为 FF，但空闲页 OOB 已预写 FF 数据对应的 RS 校验 `cd9d9058f48bffb76f`。NAND 编程按位 AND，不能把已清零的位写回 1。例如期望新校验 `ce39d3df100cdc40a0` 与旧空白页校验 AND 后为实测的 `cc1990581008dc0020`，导致后续分配时错误校验和纠错传播。读回数据、校验字节与 FTL 位置见 `verification/alpha.2-ecc-observation.json`。
 
-公开候选与该版在文件偏移 `0x95f8` 之后的**完整载入映像逐字节相同**，不是只比较源文件。差异仅为桌面图标区及 BDA 头校验信息。`reference/load-image.json` 记录二者对照；行为证据仍保留旧完整 BDA 哈希，不把旧摘要改写成新值。
+正式对照使用全新基础镜像副本，仅将这 23 个已确认全空且 FTL 标为空闲的块恢复全 FF 擦除态，未改动固件、已有映射块、游戏程序或游戏资源。之后再部署同一候选 BDA；没有覆盖两份异常镜像来抹掉记录。处理范围见 `verification/alpha.2-free-block-normalization.json`。游戏保持原有写入、全局刷写、close 和 CRC 重读流程。
 
-README 中的主菜单和组牌截图来自当前公开候选；其他截图来自上述相同载入代码的参考版。`selection-firmware-*` 是正常召唤三眼怪、交由对手战斗破坏并触发搜索的真实固件画面：查看详情不改变对局和命令计数，返回保留选择，确认后实际将所选牌加入手牌。宿主合成状态图片不放入 README。
+## 历史证据及边界
 
-## 保留的环境异常及边界
+alpha.1 的确切程序、整局对局、选牌、音频输出、异常环境及官方模拟器对照记录保留在 [alpha.1 验证记录](VERIFICATION-alpha.1.md) 和 `verification/`，不把旧哈希改写为新哈希。本版载入映像已因路径字符串和提示变更而改变，不能声称与 alpha.1 字节相同。
 
-本地重链的实验 QEMU（SHA-256 `7d0a425b7bddd3aeceb0795f3d380c5b1eb19a6e4f70e092efcb4a52c2ff3594`）曾在存档/重开后出现 BDA 45 字节变化，已装文件变成 `6886802a9e23475bb3fc003ebc0dd3a9386c32c2fff07eef26cfad33c5d9f007`，内存代码摘要也不同；五个原资源未变。见 `verification/experimental-qemu-failure.json` 和 `experimental-qemu-file-audit.json`。
+README 的历史界面截图用于展示布局；本版没有调整界面布局或原规则。官方旧模拟器的 PCM 音量问题及实验 QEMU 存储异常的边界仍见历史记录；本次只使用官方发行版做固件路径验收。
 
-异常 NAND 和存档已在本机保留，没有用覆盖同一镜像来消除失败记录。随后只用官方发行版二进制做一次独立对照，并取得前述通过结果。这个差异没有逐项定位，不能推断“音量补丁本身导致了存储异常”；实验重链环境不作为本次发布验收依据。
-
-官方发行版旧模拟器仍有已知 PCM 负采样音量计算问题；`emulator/signed-audio-volume.patch` 是独立源码修正，应用时应针对对应模拟器版本正常重建，不把其他实验工作区的缓存对象当作官方验证环境。音频生产器的宿主和参考版实际输出证据与本次官方模拟器的存储验收分别记录。
-
-尚未进行 9588 真机测试，也没有穷举所有卡片组合。本页记录本地验证范围；远端构建和发布状态以对应提交的 Actions 及 Release 为准。发布脚本要求与待上传 BDA 哈希匹配的成功固件记录，否则拒绝发布。
+尚未进行 9588 真机测试，也没有穷举所有卡片组合。Actions 状态以对应提交实际运行结果为准，CI 不做固件模拟器测试。发布脚本继续要求成功固件记录与待发布 BDA 哈希一致。

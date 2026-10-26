@@ -6,6 +6,7 @@ from pathlib import Path
 import argparse, hashlib, json, os, re, shutil, struct, subprocess, sys, zipfile
 from .prepare import prepare, ROOT, UP
 from .make_icon import make_icon
+from .resource_paths import RESOURCE_DIRECTORY, device_root
 
 def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -67,10 +68,6 @@ def main():
     from elftools.elf.elffile import ELFFile
     gcc, objcopy, compiler_version = toolchain(args.toolchain, sdk)
     out = ROOT/'build'; prepare(out)
-    paths = (UP/'src/duel_paths.h').read_text(encoding='utf8')
-    paths = re.sub(r'#define JOEY_RESOURCE_ROOT_A .*', lambda m: '#define JOEY_RESOURCE_ROOT_A "A:\\\\YUGIOH\\\\"', paths)
-    paths = re.sub(r'#define JOEY_RESOURCE_ROOT_B .*', lambda m: '#define JOEY_RESOURCE_ROOT_B "B:\\\\YUGIOH\\\\"', paths)
-    (out/'duel_paths.h').write_text(paths, encoding='utf8')
     flags = ['-EL','-march=mips32','-mabi=32','-msoft-float','-mno-abicalls','-G0','-fno-pic','-O2','-std=c11','-ffreestanding','-fno-builtin','-fno-stack-protector','-fno-strict-aliasing','-ffunction-sections','-fdata-sections']
     includes = [v for p in (out, ROOT/'src', UP/'src', UP/'data', sdk/'sdk/include') for v in ('-I', str(p))]
     sources = [UP/'src'/n for n in ('duel.c','duel_profile.c','duel_opening.c','duel_ima.c','mini.c')]+[out/'duel9588.c', ROOT/'src/audio9588.c']
@@ -104,17 +101,19 @@ def main():
     validation = validate_bda(program);assert validation['ok'], validation
     validation['path']=program.name
     reference = json.loads((UP/'assets/reference-manifest.json').read_text(encoding='utf8'))['files']
-    inputs=[*sorted((ROOT/'src').glob('*')),ROOT/'tools/prepare.py',ROOT/'tools/build.py',ROOT/'tools/make_icon.py',ROOT/'dependencies.json',ROOT/'VERSION']
+    inputs=[*sorted((ROOT/'src').glob('*')),ROOT/'tools/prepare.py',ROOT/'tools/build.py',ROOT/'tools/make_icon.py',ROOT/'tools/resource_paths.py',ROOT/'dependencies.json',ROOT/'VERSION']
     fingerprint=hashlib.sha256(''.join(p.relative_to(ROOT).as_posix()+':'+sha(p)+'\n' for p in inputs if p.is_file()).encode()).hexdigest()
     report = dict(passed=True,version=version,resolution=[240,320],entry=hex(ENTRY_VA),bss_end=hex(symbols['__bss_end']),bda_bytes=len(data),bda_sha256=sha(program),load_image_sha256=sha(raw),text_sha256=text_sha,source_commit=git(ROOT,'rev-parse','HEAD') if (ROOT/'.git').exists() else None,source_tree_sha256=fingerprint,sdk_commit=sdk_commit,upstream_commit=upstream_commit,compiler=compiler_version,public_assets_only=True,icon='original geometric crossed cards; Apache-2.0',physical_9588_tested=False,ci_emulator_tested=False,required_external_resources=reference,validation=validation)
+    report['resource_directory'] = RESOURCE_DIRECTORY
+    report['resource_roots'] = [device_root(drive) for drive in ('A', 'B')]
     manifest = (json.dumps(report, ensure_ascii=False, indent=2)+'\n').encode('utf8')
     (dist/'BUILD.json').write_bytes(manifest)
     (out/'build.json').write_bytes(manifest)
     files = {'应用/程序/游戏王.bda':bytes(data),'BUILD.json':manifest}
     for name in ('INSTALL.md','LICENSE','NOTICE','SOURCE_NOTICE.md'):
         files[name]=(ROOT/name).read_bytes()
-    files['YUGIOH/需要外部资源.txt']=(ROOT/'assets/RESOURCE_README.txt').read_bytes()
-    files['YUGIOH/resources-manifest.json']=(json.dumps(reference,indent=2)+'\n').encode('utf8')
+    files[RESOURCE_DIRECTORY+'/需要外部资源.txt']=(ROOT/'assets/RESOURCE_README.txt').read_bytes()
+    files[RESOURCE_DIRECTORY+'/resources-manifest.json']=(json.dumps(reference,indent=2)+'\n').encode('utf8')
     write_zip(dist/'BBK9588-yugioh.zip', files)
     names = ('Yugioh9588.bda','BBK9588-yugioh.zip','BUILD.json')
     (dist/'SHA256SUMS.txt').write_text(''.join(sha(dist/name)+'  '+name+'\n' for name in names),encoding='utf8')
