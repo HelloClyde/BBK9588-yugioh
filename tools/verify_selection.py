@@ -30,9 +30,14 @@ def run(leave_open=False):
         title_from_duel()
     assert indices,'No search monster drawn'
     index=indices[0];source=hand[index]
-    live.touch(31+index*35,251);live.touch(31+index*35,251)
-    if v.diag()['pending']==14:live.touch(120,163)
-    _,monsters=v.state();assert source in monsters,(source,v.diag())
+    live.touch(31+index*35,251);live.key(10)
+    summon_end=time.monotonic()+8
+    while time.monotonic()<summon_end:
+        if v.diag()['pending']==14:live.touch(120,163)
+        _,monsters=v.state()
+        if source in monsters:break
+        time.sleep(.2)
+    assert source in monsters,(source,v.diag())
     limit=time.monotonic()+150
     while time.monotonic()<limit:
         d=v.diag()

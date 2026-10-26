@@ -1,0 +1,27 @@
+{
+  "passed": false,
+  "expected_bda_sha256": "ca9e8abf2ce51910488178a427dd5b37e4cc077bb94b9665fe20410e0d7a3c7d",
+  "observed_bda_sha256": "6886802a9e23475bb3fc003ebc0dd3a9386c32c2fff07eef26cfad33c5d9f007",
+  "expected_text_sha256": "7282b5c5075cc71de4507eab27752a8cfdbd8e9345f04f3c2243d7a86b5737f0",
+  "observed_loaded_text_sha256": "0100cd52c03e9c4d878fafcbf1b07a8e5739bfdb7e85ea9fd1191bcd8a4d8706",
+  "sdk_commit": "f2fcbe020e7e94014c33d7e5c593802e4b1e3034",
+  "scenario": "Program hash check after save and normal app relaunch",
+  "guest_memory_written": false,
+  "saves": {
+    "0": {
+      "sequence": 5,
+      "main_count": 41,
+      "wins": 0,
+      "losses": 0,
+      "sha256": "af5955b6c69a9e6ec65a7e4e15defaa143e61770637b74d87e81eb87fc56db84"
+    },
+    "1": {
+      "sequence": 6,
+      "main_count": 42,
+      "wins": 0,
+      "losses": 0,
+      "sha256": "3cb7389c33b59c9e5b87c75ce54d1525d8bb2530e4dead874b506e07d112d79f"
+    }
+  },
+  "qemu_sha256": "7d0a425b7bddd3aeceb0795f3d380c5b1eb19a6e4f70e092efcb4a52c2ff3594"
+}

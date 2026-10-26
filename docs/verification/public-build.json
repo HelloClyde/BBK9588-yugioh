@@ -1,0 +1,54 @@
+{
+  "passed": true,
+  "bda_sha256": "ca9e8abf2ce51910488178a427dd5b37e4cc077bb94b9665fe20410e0d7a3c7d",
+  "sdk_commit": "f2fcbe020e7e94014c33d7e5c593802e4b1e3034",
+  "upstream_commit": "f1e83a84d8a9dbe686bb1eef064118e409b46274",
+  "load_image_sha256": "1f38374191da69402d819e6d9c2c1811e7775c569d5e9b4d11bfbb4809fbe57c",
+  "text_sha256": "7282b5c5075cc71de4507eab27752a8cfdbd8e9345f04f3c2243d7a86b5737f0",
+  "reference_bda_sha256": "ad8e57161bb31d4a6c95bea03c88ebce64e30e35e68e741fdf807b68668bed2a",
+  "same_load_image_as_reference": true,
+  "guest_memory_written": false,
+  "physical_9588_tested": false,
+  "checks": {
+    "short_and_long_menu_input": {
+      "passed": true,
+      "long_press_steps": 1
+    },
+    "touch_escape_and_dual_slot_save": {
+      "passed": true,
+      "restored_main_count": 42,
+      "sequence": 2
+    },
+    "held_direction_repeat": {
+      "passed": true,
+      "start_focus": 1,
+      "end_focus": 5
+    },
+    "normal_exit_relaunch_saved_profile": {
+      "passed": true,
+      "save": {
+        "sequence": 2,
+        "main_count": 42,
+        "wins": 0,
+        "losses": 0,
+        "sha256": "22422f04963b473b418554884dc8816a7704de7c3d99ad1694fb7492b3128cba"
+      }
+    }
+  },
+  "program_at_start": {
+    "installed_bda_sha256": "ca9e8abf2ce51910488178a427dd5b37e4cc077bb94b9665fe20410e0d7a3c7d",
+    "loaded_text_sha256": "7282b5c5075cc71de4507eab27752a8cfdbd8e9345f04f3c2243d7a86b5737f0",
+    "text_bytes": 441184
+  },
+  "program_after_relaunch": {
+    "installed_bda_sha256": "ca9e8abf2ce51910488178a427dd5b37e4cc077bb94b9665fe20410e0d7a3c7d",
+    "loaded_text_sha256": "7282b5c5075cc71de4507eab27752a8cfdbd8e9345f04f3c2243d7a86b5737f0",
+    "text_bytes": 441184
+  },
+  "environment": {
+    "emulator_release": "0.1.5",
+    "qemu_sha256": "6df16196d5acabdb96447e04150bcd4f65f34a9ae51ec5981177ca435bfe7002",
+    "qemu_variant": "installed release binary; no local audio relink",
+    "audio_listening_checked_in_this_run": false
+  }
+}

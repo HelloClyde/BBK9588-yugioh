@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "source_commit": "9f5a92fa6b3744f1c5cf541fd6e2c3240f378687",
+  "source_tree_sha256": "823ce134372e4f1e4110b694cd2a7d117f3dbecfb399472d0eddd7e84af934e9",
+  "sdk_commit": "f2fcbe020e7e94014c33d7e5c593802e4b1e3034",
+  "upstream_commit": "f1e83a84d8a9dbe686bb1eef064118e409b46274",
+  "same_bda_and_zip": true,
+  "external_resources_required_for_build": false,
+  "files": {
+    "Yugioh9588.bda": "ca9e8abf2ce51910488178a427dd5b37e4cc077bb94b9665fe20410e0d7a3c7d",
+    "BBK9588-yugioh.zip": "1bd6a69d3ba959eb9201200813b8bd315382d2995578fa611460e2f59095a845",
+    "BUILD.json": "7c02092666b11da19954e07ea0f7d713b7e077787e5ee69f176fb8b59bcbbc78",
+    "SHA256SUMS.txt": "634f6b6101f05d3c2df2123fa400f8a0262c93a41cac75626e6983d94246ea4c"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "passed": true,
+  "files": {
+    "Yugioh9588.bda": {
+      "matches_build_input": true,
+      "size": 1314060,
+      "clusters": 81,
+      "expected_sha256": "ca9e8abf2ce51910488178a427dd5b37e4cc077bb94b9665fe20410e0d7a3c7d",
+      "actual_sha256": "ca9e8abf2ce51910488178a427dd5b37e4cc077bb94b9665fe20410e0d7a3c7d"
+    },
+    "FONT.BIN": {
+      "matches_build_input": true,
+      "size": 3584125,
+      "clusters": 219,
+      "expected_sha256": "4edf0bcf93137097cc0441b6cd1f6efb84248ca25a9373e2feda542d3ea7c23a",
+      "actual_sha256": "4edf0bcf93137097cc0441b6cd1f6efb84248ca25a9373e2feda542d3ea7c23a"
+    },
+    "H1UI.PAK": {
+      "matches_build_input": true,
+      "size": 12617296,
+      "clusters": 771,
+      "expected_sha256": "0e6c8971488af4c6cc4ce61dbfd8ef95b4ee7cd69b6c88b13a30f99ba408d1ec",
+      "actual_sha256": "0e6c8971488af4c6cc4ce61dbfd8ef95b4ee7cd69b6c88b13a30f99ba408d1ec"
+    },
+    "H1ART.PAK": {
+      "matches_build_input": true,
+      "size": 801200,
+      "clusters": 49,
+      "expected_sha256": "a110ab5350b4409406cfc352f92589e6857ee3781e26f702ea62d0ea23363d48",
+      "actual_sha256": "a110ab5350b4409406cfc352f92589e6857ee3781e26f702ea62d0ea23363d48"
+    },
+    "H1SCN.PAK": {
+      "matches_build_input": true,
+      "size": 522272,
+      "clusters": 32,
+      "expected_sha256": "1cdbc5e4df2e3b5668cb37f201a26d9d8f100c7748bf582ba8d082a6afbdd0d8",
+      "actual_sha256": "1cdbc5e4df2e3b5668cb37f201a26d9d8f100c7748bf582ba8d082a6afbdd0d8"
+    },
+    "H1SND.PAK": {
+      "matches_build_input": true,
+      "size": 14551040,
+      "clusters": 889,
+      "expected_sha256": "a5b5ffa3e19857f4a1bf4ee97373bf1d599cd1436e6996b6da6d0523c36e394e",
+      "actual_sha256": "a5b5ffa3e19857f4a1bf4ee97373bf1d599cd1436e6996b6da6d0523c36e394e"
+    }
+  }
+}

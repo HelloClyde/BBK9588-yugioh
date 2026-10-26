@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "checks": 217,
+  "fixture_kind": "host synthetic states using production frontend",
+  "guest_memory_written": false,
+  "selection_modes": 7,
+  "ui_source_sha256": "178f49407731009ab80d3a79dd06b0381966cee2b0369de33b545befeb66262f",
+  "uses_local_resources": true,
+  "production_audio_tests_passed": true
+}
