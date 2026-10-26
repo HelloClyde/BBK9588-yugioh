@@ -1,0 +1,8 @@
+{
+  "reference_bda_sha256": "ad8e57161bb31d4a6c95bea03c88ebce64e30e35e68e741fdf807b68668bed2a",
+  "reference_bda_bytes": 1314060,
+  "entry_file_offset": 38392,
+  "load_image_sha256": "1f38374191da69402d819e6d9c2c1811e7775c569d5e9b4d11bfbb4809fbe57c",
+  "text_sha256": "7282b5c5075cc71de4507eab27752a8cfdbd8e9345f04f3c2243d7a86b5737f0",
+  "note": "Computed from the exact prior verified BDA after its 0x95f8 icon/header region; contains no resource pixels or executable bytes."
+}

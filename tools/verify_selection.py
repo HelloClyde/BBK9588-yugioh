@@ -81,7 +81,10 @@ def run(leave_open=False):
     hand,_=v.state();assert hand.count(expected)==copies+1,(expected,hand)
     assert v.diag()['commands']==commands+1
     v.wait_idle();title_from_duel()
-    report=json.loads((ROOT/'qa/selection-result.json').read_text(encoding='utf8'))
+    previous=ROOT/'qa/selection-result.json'
+    if not previous.exists():previous=ROOT/'build/tests/selection.json'
+    report=json.loads(previous.read_text(encoding='utf8'))
+    report['bda_sha256']=v.REPORT['bda_sha256']
     report['firmware']={'passed':True,'normal_inputs_only':True,'guest_memory_written':False,'attempts':attempts,'source_card':source,'inspected_card':expected,'options':count,'page_details_checked':paging,'selection_retained':True,'game_unchanged_while_inspecting':True,'confirm_added_chosen_card_to_hand':True,'program':program}
     (ROOT/'qa/selection-result.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf8')
     print('PASS real firmware selection details',flush=True)
