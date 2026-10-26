@@ -24,7 +24,7 @@
 - 两次独立输出目录构建的 BDA、安装 ZIP、BUILD.json 和 SHA256SUMS.txt 逐字节一致；记录见 `verification/reproducibility.json`。该清单对应其记录的源提交；文档提交会改变 BUILD.json 的 `source_commit`，实际交付始终以对应 `dist/SHA256SUMS.txt` 为准。
 - 原生规则 1,454,892 项，卡组/存档 4,691 项，均零失败，见 `verification/host-rules.json`。
 - 不带商业资源时选牌 UI 214 项断言通过；带使用者本地资源时 217 项及生产音频宿主测试通过，见 `verification/host-ui.json`。这些是宿主检查，不冒充固件执行。
-- README 六张图片均为仓库相对路径。Git 和公共 ZIP 的明确文件清单检查通过，没有原资源、固件、NAND、个人存档或工具链。
+- README 六张图片均为仓库相对路径。Git 和源码 CI 程序 ZIP 的明确文件清单检查通过，没有原资源、固件、NAND、个人存档或工具链。后续增补的完整安装和资源 ZIP 按 [资源发布说明](RESOURCE_RELEASE.md) 单独检查，仅包含白名单中的五个原资源及说明，不改变本次确切 BDA。
 - Actions YAML、作业依赖、读写权限和官方 Action 接口已本地检查；远端 Actions 状态以对应提交的实际运行结果为准。
 
 ## 当前确切 BDA 的固件检查

@@ -6,7 +6,7 @@
 
 ## 快速开始
 
-使用成品时，从 [Releases](https://github.com/HelloClyde/BBK9588-yugioh/releases) 下载 `BBK9588-yugioh.zip`，或在本地构建得到 `dist/BBK9588-yugioh.zip`，解压到设备 A 盘根目录。程序与自行提供的资源应位于：
+使用成品时，从 [Releases](https://github.com/HelloClyde/BBK9588-yugioh/releases/tag/v0.1.0-alpha.1) 下载 **`BBK9588-yugioh-v0.1.0-alpha.1-full.zip` 完整安装包**，直接解压到设备 A 盘根目录，得到：
 
 ```text
 A:\应用\程序\游戏王.bda
@@ -17,7 +17,9 @@ A:\YUGIOH\H1SCN.PAK
 A:\YUGIOH\H1SND.PAK
 ```
 
-**公共 ZIP 只携带 BDA、说明和资源哈希，不包含上述五个原资源。** 使用者自行提供有权使用的兼容资源，按图示复制到 `A:\YUGIOH\`；也支持 B 盘同名目录，优先 A 盘。仅复制 BDA 不能运行。刷新桌面后，从“娱乐天地”启动“游戏王”。完整路径和存档迁移说明见 [INSTALL.md](INSTALL.md)。
+**完整安装包已经包含全部五个运行资源，无需另下资源包。** 刷新桌面后，从“娱乐天地”启动“游戏王”。也支持 B 盘同名资源目录，优先 A 盘。完整安装说明见 [完整包安装](docs/INSTALL-FULL.md)。
+
+已单独下载 BDA 的使用者可配合 `BBK9588-yugioh-v0.1.0-alpha.1-resources.zip`，同样解压到 A 盘根目录。原 `BBK9588-yugioh.zip` 是保留的 **不带资源的 CI 程序包**，仅复制其中 BDA 不能运行；它的手动安装及存档迁移说明见 [INSTALL.md](INSTALL.md)。源码不收录五个 BIN/PAK，增补资源与完整包的来源和校验见 [资源发布说明](docs/RESOURCE_RELEASE.md)。
 
 方向键选择、确定执行、返回关闭页面；决斗中返回打开菜单。点卡片先选中，再点执行；底部“盖放”切换盖放模式，“详情”查看选中牌。选牌弹窗提供“返回 / 详情 / 确认”，方向右键也能看当前高亮牌；返回保留选项和页码。手牌超过六张时可左右翻页，长卡片说明可上下滚动。
 
@@ -46,6 +48,8 @@ python tools/test_host.py --cc gcc --assets .local-assets
 
 上述尖括号参数需替换为自己的本地路径；导入工具逐个验证固定上游的大小与 SHA-256，不下载资源。`.local-assets/` 与本地生成物均被 Git 排除。
 
+需要自行打包完整安装 ZIP 时，用已验证的 BDA 成品和本地资源执行 [资源发布说明](docs/RESOURCE_RELEASE.md) 中的 `tools/package_resources.py`；脚本保持程序字节不变，不重编译游戏。
+
 ## 截图
 
 以下均为本移植版在完整 9588 固件模拟器中的实际运行画面，来自已经验证的设备代码；不是效果图或其他项目截图。第三方画面不适用本仓库的代码许可证。
@@ -62,7 +66,7 @@ python tools/test_host.py --cc gcc --assets .local-assets
 
 | 依赖 | 固定版本 / 用途 |
 |---|---|
-| 运行环境 | BBK 9588 / C200，240×320；原兼容资源五个文件，哈希见固定上游 `assets/reference-manifest.json` |
+| 运行环境 | BBK 9588 / C200，240×320；完整安装 ZIP 已包含五个兼容资源，哈希见固定上游 `assets/reference-manifest.json` |
 | 9588 SDK | `sdk/` 子模块，[bbk9588-bda-sdk](https://github.com/HelloClyde/bbk9588-bda-sdk)，`f2fcbe020e7e94014c33d7e5c593802e4b1e3034` |
 | 上游游戏源码 | `upstream/` 子模块，[BBKH1-yugioh](https://github.com/HelloClyde/BBKH1-yugioh)，`f1e83a84d8a9dbe686bb1eef064118e409b46274` |
 | 编译器 | MIPS GNU GCC 15.2.0；SDK 安装器固定下载包 SHA-256，不随游戏发布 |
@@ -76,7 +80,7 @@ python tools/test_host.py --cc gcc --assets .local-assets
 
 `tools/prepare.py` 从固定且未修改的上游源码提取游戏语义逻辑，替换为 `src/` 的竖屏渲染和输入。生成的 C、ELF、链接图及构建清单保存在 `build/`。入口 `0x81c00020`，使用 soft-float；BSS 完整随载入映像分发并在入口清零。
 
-成品为 `dist/Yugioh9588.bda`、`dist/BBK9588-yugioh.zip`、`dist/BUILD.json`、`dist/SHA256SUMS.txt`。ZIP 使用固定条目顺序、时间和明确文件清单；不把开发目录整体压缩，也不包含任何个人存档。`BUILD.json` 区分静态构建校验和模拟器验证，CI 编译成功不等于游戏已经做过整机测试。
+源码 CI 成品为 `dist/Yugioh9588.bda`、不带资源的 `dist/BBK9588-yugioh.zip`、`dist/BUILD.json`、`dist/SHA256SUMS.txt`。Release 另附 `-full.zip` 完整安装包、`-resources.zip` 独立资源包及 `RESOURCE_BUILD.json` / `RESOURCES-SHA256SUMS.txt`。ZIP 使用固定条目顺序、时间和明确文件清单；不把开发目录整体压缩，也不包含任何个人存档。`BUILD.json` 区分静态构建校验和模拟器验证，CI 编译成功不等于游戏已经做过整机测试。
 
 [Actions 工作流](.github/workflows/build-release.yml) 为 main、PR、手动运行构建并上传临时 artifacts；`v<VERSION>` 标签通过校验后使用同一次构建的产物创建预发布 / Release。发布 job 单独具有写权限，遇到已有同名 Release 会停止，不默认覆盖资产。具体发布步骤见 [发布说明](docs/RELEASING.md)，远端构建和发布状态以对应提交的 [Actions 运行结果](https://github.com/HelloClyde/BBK9588-yugioh/actions) 为准。
 

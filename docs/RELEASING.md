@@ -16,7 +16,7 @@
 - `BUILD.json`
 - `SHA256SUMS.txt`
 
-不公开五个 BIN/PAK、商业字体、原游戏程序、NAND/固件、个人存档、工具链或测试可执行文件。模拟器补丁和截图的许可边界见 SOURCE_NOTICE。
+上述四个文件保持为源码 CI 产物。五个 BIN/PAK 不加入 Git；Release 按 [资源发布说明](RESOURCE_RELEASE.md) 另行附加完整安装包和独立资源包，使用独立增补清单，不覆盖原 CI 资产或移动标签。原字体文件、原游戏程序、NAND/固件、个人存档、工具链和测试可执行文件均不公开。第三方资源、模拟器补丁和截图的许可边界见 SOURCE_NOTICE。
 
 工作流接口已参照官方定义核对：
 [checkout v7](https://github.com/actions/checkout/blob/v7/action.yml)、

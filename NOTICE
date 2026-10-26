@@ -8,8 +8,12 @@ its own Apache-2.0 LICENSE and NOTICE, retained in sdk/.
 
 Yu-Gi-Oh!, Power of Chaos: Joey the Passion, its characters, artwork, music,
 translated text and original software belong to their respective rightsholders.
-The commercial images, font glyph packs, audio, PC program, firmware and
-personal saves are not included in this repository or its public install ZIP.
+The commercial images, font glyph packs and audio are not included in Git or
+the source-only CI program ZIP. Converted runtime resources accompany releases
+as separate resource and complete installation ZIPs. They retain their original
+rightsholders and are not licensed under this project's Apache-2.0 license;
+their redistribution permissions remain unconfirmed. The original PC program,
+firmware and personal saves are not distributed.
 
 Screenshots are real emulator interoperability records. The code license does
 not grant rights to the third-party material shown in those screenshots.
