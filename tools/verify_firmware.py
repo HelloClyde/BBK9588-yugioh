@@ -23,6 +23,14 @@ def diag():
     p=list(struct.unpack('<12I',memory('joey_profile_diagnostic')))
     return dict(view=d[1],commands=d[4],result=d[5],life=d[6:8],turn=d[8],active=d[9],phase=d[10],hand=d[11],selected=d[12],focus=d[13],pending=d[14],revision=d[15],response=d[22],profile=p)
 def u32(name):return struct.unpack('<I',memory(name,4))[0]
+def wait_saved(sequence,timeout=15):
+    end=time.monotonic()+timeout
+    while time.monotonic()<end:
+        p=diag()['profile']
+        if p[0]==sequence and p[3]==1:return p
+        if p[3]==2:raise AssertionError(('Profile write failed',p))
+        time.sleep(.15)
+    raise AssertionError(('Profile save did not finish',sequence,diag()))
 def state():
     raw=memory('joey_duel_state');p=LAYOUT[2];n=raw[p+LAYOUT[12]]
     hand=list(struct.unpack_from('<'+'H'*n,raw,p+LAYOUT[9]))
@@ -64,12 +72,12 @@ def main():
     remove=base>40
     live.touch(145 if remove else 90,305);expected=base-1 if remove else base+1
     assert diag()['profile'][10]==expected
-    live.touch(205,305);p=diag()['profile'];assert p[0]==before[0]+1 and p[3]==1
+    live.touch(205,305);p=wait_saved(before[0]+1)
     exported=save_export(p[1]);assert exported['main_count']==expected
     live.touch(30,305);live.touch(120,180);assert diag()['profile'][10]==expected
     live.shot('deck');record('deck_save_and_reload',save=exported)
     # Restore the deck count, and verify the other journal slot is valid.
-    live.touch(90 if remove else 145,305);live.touch(205,305);p=diag()['profile'];assert p[10]==base and p[3]==1
+    sequence=p[0]+1;live.touch(90 if remove else 145,305);live.touch(205,305);p=wait_saved(sequence);assert p[10]==base
     restored=save_export(p[1]);assert restored['main_count']==base;record('two_slot_profile',save=restored)
     REPORT['program_after_profile_save']=verify_program()
     # Find a real owned card with a long effect and scroll its actual text.

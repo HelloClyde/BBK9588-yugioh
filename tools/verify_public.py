@@ -14,10 +14,20 @@ def main():
     ap.add_argument('--program',default=live.PROGRAM_PATH)
     ap.add_argument('--selection',action='store_true')
     args=ap.parse_args();live.BASE=args.base;live.PROGRAM_PATH=args.program
+    # Let firmware input queues settle between distinct gestures, especially
+    # after a first FAT journal allocation. Do not mistake stale RAM for a
+    # still-running app after returning to the desktop.
+    original_touch=live.touch
+    def settled_touch(x,y):original_touch(x,y);time.sleep(.35)
+    live.touch=settled_touch
+    def alive():
+        first=v.memory('joey_native_diagnostic')[12:16];time.sleep(.25)
+        assert v.memory('joey_native_diagnostic')[12:16]!=first,'Game loop is not running'
     build=json.loads((ROOT/'build/build.json').read_text(encoding='utf8'))
     reference=json.loads((ROOT/'docs/verification/reference/load-image.json').read_text(encoding='utf8'))
     report={'passed':False,'bda_sha256':build['bda_sha256'],'sdk_commit':build['sdk_commit'],'upstream_commit':build['upstream_commit'],'load_image_sha256':build['load_image_sha256'],'text_sha256':build['text_sha256'],'reference_bda_sha256':reference['reference_bda_sha256'],'same_load_image_as_reference':build['load_image_sha256']==reference['load_image_sha256'],'guest_memory_written':False,'physical_9588_tested':False,'checks':{}}
     assert report['same_load_image_as_reference']
+    alive()
     assert v.diag()['view']==2
     report['program_at_start']=v.verify_program()
     live.shot('public-menu')
@@ -33,10 +43,10 @@ def main():
     live.touch(90,84);assert v.diag()['profile'][7]==0
     remove=base>40;live.touch(145 if remove else 90,305)
     expected=base-1 if remove else base+1;assert v.diag()['profile'][10]==expected
-    live.touch(205,305);p=v.diag()['profile'];assert p[0]==before[0]+1 and p[3]==1
+    live.touch(205,305);p=v.wait_saved(before[0]+1)
     saved=v.save_export(p[1]);assert saved['main_count']==expected
-    live.touch(90 if remove else 145,305);live.touch(205,305)
-    p=v.diag()['profile'];saved=v.save_export(p[1]);assert saved['main_count']==base
+    sequence=p[0]+1;live.touch(90 if remove else 145,305);live.touch(205,305)
+    p=v.wait_saved(sequence);saved=v.save_export(p[1]);assert saved['main_count']==base
     live.touch(30,305);live.touch(120,180);assert v.diag()['profile'][10]==base
     live.shot('public-deck');live.touch(30,305)
     report['checks']['touch_escape_and_dual_slot_save']={'passed':True,'restored_main_count':base,'sequence':saved['sequence']}
@@ -60,7 +70,7 @@ def main():
         import verify_selection
         report['checks']['selection_details']=verify_selection.run()
     live.key(9);time.sleep(2);live.shot('public-desktop-after-exit')
-    live.touch(120,100);time.sleep(3)
+    live.key(10);time.sleep(3);alive()
     assert v.diag()['view']==2 and v.diag()['profile'][0]==saved['sequence']
     live.touch(120,180);assert v.diag()['profile'][10]==base
     p=v.diag()['profile'];assert v.save_export(p[1])==saved

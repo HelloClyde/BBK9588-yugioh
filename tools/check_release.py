@@ -9,6 +9,7 @@ def check(folder, tag=None):
     pins=json.loads((ROOT/'dependencies.json').read_text(encoding='utf8'))
     assert report['public_assets_only'] and report['sdk_commit']==pins['sdk']['commit']
     assert report['upstream_commit']==pins['upstream']['commit']
+    assert report['validation']['path']=='Yugioh9588.bda'
     expected={'Yugioh9588.bda','BBK9588-yugioh.zip','BUILD.json'}
     lines=(folder/'SHA256SUMS.txt').read_text().splitlines()
     seen=set()

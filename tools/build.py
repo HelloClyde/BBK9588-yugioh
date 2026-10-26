@@ -102,6 +102,7 @@ def main():
     dist = args.output_dir.resolve();dist.mkdir(parents=True,exist_ok=True)
     program = dist/'Yugioh9588.bda';program.write_bytes(data)
     validation = validate_bda(program);assert validation['ok'], validation
+    validation['path']=program.name
     reference = json.loads((UP/'assets/reference-manifest.json').read_text(encoding='utf8'))['files']
     inputs=[*sorted((ROOT/'src').glob('*')),ROOT/'tools/prepare.py',ROOT/'tools/build.py',ROOT/'tools/make_icon.py',ROOT/'dependencies.json',ROOT/'VERSION']
     fingerprint=hashlib.sha256(''.join(p.relative_to(ROOT).as_posix()+':'+sha(p)+'\n' for p in inputs if p.is_file()).encode()).hexdigest()
